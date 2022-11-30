@@ -22,4 +22,4 @@ BackLog:
     - Dark Mode (NEW)
     - Language Selector (NEW)
 
-GitHub Repo: 
+GitHub Repo: https://github.com/c-osornio/SecretSanta-MERN

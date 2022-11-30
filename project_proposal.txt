@@ -14,6 +14,7 @@ Week 1 Features:
 
 Week 2 Features:
     - Socket.io working on localhost
+    - Send Invitations through text or email
 
 BackLog: 
     - Socket.io working in deployment (NEW)
@@ -21,5 +22,7 @@ BackLog:
     - Sign in with google (NEW)
     - Dark Mode (NEW)
     - Language Selector (NEW)
+    - Forgot Password (NEW)
+    - Exclusions
 
 GitHub Repo: https://github.com/c-osornio/SecretSanta-MERN

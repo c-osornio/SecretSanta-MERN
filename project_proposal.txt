@@ -1,0 +1,25 @@
+SECRET SANTA APP!
+
+Name: Carlos Osornio
+Project Title: Kringle 
+Project Stack: MERN
+
+Description: App to create and help secret santa groups with drawing names, setting exclusions, setting budget, inviting friends, setting wishlists, and chatting anonymously
+
+Week 1 Features: 
+    - Full CRUD with groups and wishlists
+    - Tailwind CSS (NEW)
+    - Login/Registration with Data Validation (NEW)
+    - Protected Routes (NEW)
+
+Week 2 Features:
+    - Socket.io working on localhost
+
+BackLog: 
+    - Socket.io working in deployment (NEW)
+    - QR Code API for invites (NEW)
+    - Sign in with google (NEW)
+    - Dark Mode (NEW)
+    - Language Selector (NEW)
+
+GitHub Repo: 

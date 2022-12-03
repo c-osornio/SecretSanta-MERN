@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {UserContext} from '../context/UserContextProvider'
+import {useNavigate} from 'react-router-dom'
 
 export default function NavBar() {
     const [navbar, setNavbar] = useState(false);
+    const {state,dispatch} = useContext(UserContext)
+    const navigate = useNavigate()
+
+    const handleLogout = (e) => {
+        console.log("Attempting to logout")
+        dispatch({
+            type:"LOGOUT_USER",
+            payload: navigate
+        })
+    }
 
     return (
         <nav className="w-full bg-slate-700 shadow">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-2 md:block">
-                        <h2 className="title">Welcome to Kringle!</h2>
+                        <h2 className="title">
+                            {state.firstName} Kringle</h2>
                         <div className="md:hidden">
                             <button
                                 className="p-2 text-black-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -54,19 +67,16 @@ export default function NavBar() {
                         }`}
                     >
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                            <li className="text-black-600 hover:text-blue-600">
+                            <li className="text-white hover:text-blue-600">
                                 <a href="#">Home</a>
                             </li>
-                            <li className="text-black-600 hover:text-blue-600">
+                            <li className="text-white hover:text-blue-600">
                                 <a href="#">Organize New Party!</a>
                             </li>
-                            <li className="text-black-600 hover:text-blue-600">
-                                <a href="#">My Parties</a>
-                            </li>
-                            <li className="text-black-600 hover:text-blue-600">
+                            <li className="text-white hover:text-blue-600">
                                 <a href="#">My Wishlist</a>
                             </li>
-                            <button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full">
+                            <button onClick={handleLogout} className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full">
                                 Logout
                             </button>
                         </ul>

@@ -11,10 +11,14 @@
 
   .title {
     font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 3rem;
+    line-height: 3.5rem;
     color: black;
     font-weight: bolder;
+    background-image: url("https://i.gifer.com/embedded/download/YxDK.gif");
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .container {
@@ -22,11 +26,8 @@
   }
 
   .secret {
-    /* position: fixed;
-    bottom:0; */
     width: 100%;
     height: 150px;
-    margin-bottom: 20px;;
   }
 
   .background {
@@ -36,7 +37,7 @@
   .welcome {
     text-align: center;
     font-size: 8rem;
-    background-image: url("https://i.gifer.com/4zAg.gif");
+    background-image: url("https://i.gifer.com/embedded/download/YxDK.gif");
     background-size: cover;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -1,9 +1,38 @@
-import {useState} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import {UserContext} from '../context/UserContextProvider'
 
 
-const Login = ({setLoggedIn}) => {
+const Login = ({loggedIn, setLoggedIn}) => {
+    const {state,dispatch} = useContext(UserContext);
     const [input,setInput] = useState({})
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        console.log("Current state (login):", state)
+        state.user && navigate('/dashboard')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[state.user])
+
+    const submitHandler = (e)=>{
+        console.log("Attempting to login")
+        e.preventDefault()
+        axios.post('http://localhost:8000/api/users/login' ,input, {withCredentials:true})
+        .then((res)=>{
+            console.log("Login: ", res.data)
+            dispatch({
+                type: "SET_USER",
+                payload: res.data.user
+            })
+            setLoggedIn(true)
+            navigate('/dashboard')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
 
     const changeHandler=(e)=>{
         setInput({...input,[e.target.name]:e.target.value})
@@ -15,28 +44,36 @@ const Login = ({setLoggedIn}) => {
                 <h1 className="text-3xl font-semibold text-center text-indigo-700 underline uppercase decoration-wavy">
                     Login
                 </h1>
-                <form className="mt-6">
+                <form className="mt-6" onSubmit={submitHandler}>
                     <div className="mb-2">
                         <label
-                            for="email"
+                            htmlFor="email"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Email:
                         </label>
                         <input
+                            autoComplete="email"
+                            value={input.email}
+                            onChange={changeHandler}
                             type="email"
+                            name="email"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
                     <div className="mb-2">
                         <label
-                            for="password"
+                            htmlFor="password"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Password:
                         </label>
                         <input
+                            autoComplete="password"
+                            value={input.password}
+                            onChange={changeHandler}
                             type="password"
+                            name="password"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
@@ -49,7 +86,7 @@ const Login = ({setLoggedIn}) => {
 
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}New to Kringle?{" "}
-                    <Link to="/home"
+                    <Link to="/register"
                         className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full"
                     >
                         Register

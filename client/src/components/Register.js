@@ -1,12 +1,37 @@
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {useState, useEffect, useContext} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import {UserContext} from '../context/UserContextProvider'
 
 
-const Register = ({setLoggedIn}) => {
-    const [input,setInput] = useState({})
+const Register = ({loggedIn, setLoggedIn}) => {
+    const navigate = useNavigate()
+    const [user,setUser] = useState({})
+    const [errors, setErrors] = useState({});
+    const {state,dispatch} = useContext(UserContext);
+    
+    useEffect(()=>{
+        console.log("Current state user:", state)
+        state.user && navigate('/dashboard')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[state.user])
+
+    const submitHandler=(e)=>{
+        console.log("Attempting to register")
+        e.preventDefault()
+        axios.post('http://localhost:8000/api/users/register', user, {withCredentials:true})
+            .then((res)=>{
+                console.log("Success Login: ", res.data)
+                navigate('/dashboard')
+            })
+            .catch((err)=>{
+                console.log("THIS IS MY ERROR", err)
+                setErrors(err.response.data.error.errors)
+            })
+    }
 
     const changeHandler=(e)=>{
-        setInput({...input,[e.target.name]:e.target.value})
+        setUser({...user,[e.target.name]:e.target.value})
     }
 
     return (
@@ -15,63 +40,89 @@ const Register = ({setLoggedIn}) => {
                 <h1 className="text-3xl font-semibold text-center text-indigo-700 underline uppercase decoration-wavy">
                     Register
                 </h1>
-                <form className="mt-6">
+                <form className="mt-6"  onSubmit={submitHandler}>
                     <div className="mb-2">
                         <label
-                            for="firstName"
+                            htmlFor="firstName"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             First Name:
                         </label>
                         <input
+                            name="firstName"
+                            autoComplete="firstName"
+                            value={state.firstName}
+                            onChange={changeHandler}
                             type="text"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
+                        { 
+                        errors.firstName && (<p className="text-red-500 text-xs italic">{errors.firstName.message}</p>)
+                        }
                     </div>
                     <div className="mb-2">
                         <label
-                            for="lastName"
+                            htmlFor="lastName"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Last Name:
                         </label>
                         <input
+                            name="lastName"
+                            autoComplete="lastName"
+                            value={state.lastName}
+                            onChange={changeHandler}
                             type="text"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
+                        { 
+                        errors.lastName && (<p className="text-red-500 text-xs italic">{errors.lastName.message}</p>)
+                        }
                     </div>
                     <div className="mb-2">
                         <label
-                            for="email"
+                            htmlFor="email"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Email:
                         </label>
                         <input
+                            name="email"
+                            autoComplete="email"
+                            value={state.email}
+                            onChange={changeHandler}
                             type="email"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
                     <div className="mb-2">
                         <label
-                            for="password"
+                            htmlFor="password"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Password:
                         </label>
                         <input
+                            name="password"
+                            autoComplete="password"
+                            value={state.password}
+                            onChange={changeHandler}
                             type="password"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
                     <div className="mb-2">
                         <label
-                            for="confirmPassword"
+                            htmlFor="confirmPassword"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Confirm Password:
                         </label>
                         <input
+                            name="confirmPassword"
+                            autoComplete="confirmPassword"
+                            value={state.confirmPassword}
+                            onChange={changeHandler}
                             type="password"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
@@ -85,7 +136,7 @@ const Register = ({setLoggedIn}) => {
 
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}Already have an account?{" "}
-                    <Link to="/login"
+                    <Link to="/home"
                         className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full"
                     >
                         Sign in

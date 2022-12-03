@@ -12,6 +12,15 @@ module.exports = {
                 res.status(404).json({ message: 'Something went wrong!', error: err })
             });
     },
+    getAll: (req, res) => {
+        User.find()
+            .then( result => {
+                res.json(result)
+            })
+            .catch( err => {
+                res.status(404).json({ message: 'Something went wrong!', error: err })
+            });
+    },
     update: (req, res) => {
         User.findOneAndUpdate(
             { _id: req.params.id },
@@ -48,31 +57,33 @@ module.exports = {
             })
             .catch(err => res.json(err));
     },
-    login: async(req, res) => {
-        const user = await User.findOne({ email: req.body.email });
-        if(user === null) {
-            // email not found in users collection
-            return res.status(400);
-        }
-        // if we made it this far, we found a user with this email address
-        // let's compare the supplied password to the hashed password in the database
-        const correctPassword = await bcrypt.compare(req.body.password, user.password);
-        if(!correctPassword) {
-            // password wasn't a match!
-            return res.sendStatus(400);
-        }
-        // if we made it this far, the password was correct
-        const userToken = jwt.sign({
-            id: user._id
-        }, process.env.SECRET_KEY);
-        res
-            .cookie("usertoken", userToken, {
-                httpOnly: true
+    login: (req, res) => {
+        User.findOne({email:req.body.email})
+        .then((user)=>{
+            const {_id,firstName,...other} = user
+            if(user === null) {
+                res.status(400);
+            }
+            bcrypt.compare(req.body.password,user.password)
+            .then(()=>{
+                const userToken = jwt.sign({
+                    id:user._id,
+                    firstName:user.firstName
+                }, process.env.SECRET_KEY)
+                res.cookie('usertoken',userToken,{
+                    httpOnly:true
+                }).json({user:{id:_id,name:firstName}})
             })
-            .json({ msg: "success!" });
+            .catch(()=>{
+                res.status(400)
+            })
+        })
+        .catch((err)=>{
+            res.status(400).json({msg:"Something went wrong",error:err})
+        })
     },
     logout: (req, res) => {
         res.clearCookie('usertoken');
         res.status(200).json({user:"Logged Out"})
-        }
+    }
 }

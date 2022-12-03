@@ -22,7 +22,11 @@ module.exports = {
             } else {
                 const user = await User.findOne({_id:payload.id})
                 const {_id,firstName} = user
-                return res.json({user:{id:_id,firstName:firstName}})
+                return res.json({
+                    user: {
+                        id: _id,
+                        firstName: firstName
+                    }})
             }
         })
     }

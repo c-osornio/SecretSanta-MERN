@@ -9,6 +9,7 @@ Description: App to create and help secret santa groups with drawing names, sett
 Week 1 Features: 
     - Full CRUD with groups and wishlists
     - Tailwind CSS (NEW)
+    - Sass CSS (NEW)
     - Login/Registration with Data Validation (NEW)
     - Protected Routes (NEW)
 
@@ -26,3 +27,5 @@ BackLog:
     - Exclusions
 
 GitHub Repo: https://github.com/c-osornio/SecretSanta-MERN
+
+Wireframe: https://share.balsamiq.com/c/46KAYfA7gsysdDVBmbyXFd.png

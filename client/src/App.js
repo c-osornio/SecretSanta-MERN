@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard";
 import {useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import {UserContext} from './context/UserContextProvider'
+import ViewPartyForm from './views/ViewPartyForm';
 
 
 
@@ -14,7 +15,7 @@ function App() {
   const {state,dispatch} = useContext(UserContext)
 
   useEffect(()=>{
-    axios.post('http://localhost:8000/api/users/isLoggedIn',{},{withCredentials:true})
+    axios.post('http://localhost:8000/api/users/isLoggedIn', {}, {withCredentials:true})
     .then((user)=>{
       console.log(user.data)
       dispatch({
@@ -42,6 +43,7 @@ function App() {
           <Route path="/home" element={<Home setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
           <Route path="/register" element={<ViewRegister setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/party/new" element={<ViewPartyForm/>} />
         </Routes>
       </BrowserRouter>
     </>

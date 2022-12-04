@@ -55,32 +55,43 @@ module.exports = {
                     })
                     .json({ msg: "Registration successful!", user: user });
             })
-            .catch(err => res.json(err));
+            .catch((err)=>{
+                res.status(400).json({msg:"Something went wrong",error:err})
+            })
     },
     login: (req, res) => {
         User.findOne({email:req.body.email})
-        .then((user)=>{
-            const {_id,firstName,...other} = user
-            if(user === null) {
-                res.status(400);
-            }
-            bcrypt.compare(req.body.password,user.password)
-            .then(()=>{
-                const userToken = jwt.sign({
-                    id:user._id,
-                    firstName:user.firstName
-                }, process.env.SECRET_KEY)
-                res.cookie('usertoken',userToken,{
-                    httpOnly:true
-                }).json({user:{id:_id,name:firstName}})
+            .then((user)=>{
+                const {_id, firstName, ...other} = user
+                if(user === null) {
+                    res.status(400).json({message:"*Invaild Login Attempt"});
+                } else {
+                    bcrypt.compare(req.body.password, user.password)
+                        .then((isPasswordValid)=>{
+                            if(isPasswordValid) {
+                                console.log("Password is valid")
+                                const userToken = jwt.sign({
+                                    id: user._id,
+                                    firstName: user.firstName
+                                }, process.env.SECRET_KEY)
+                                res
+                                    .cookie('usertoken',userToken,{httpOnly:true})
+                                    .json({user:
+                                        {id: _id,
+                                        firstName: firstName
+                                    }})
+                            } else {
+                                res.status(400).json({message:"*Invaild Login Attempt"});
+                            }
+                        })
+                        .catch((err)=>{
+                            res.status(400).json({message:"*Invaild Login Attempt",error:err})
+                        })
+                }
             })
-            .catch(()=>{
-                res.status(400)
+            .catch((err)=>{
+                res.status(400).json({message:"*Invaild Login Attempt",error:err})
             })
-        })
-        .catch((err)=>{
-            res.status(400).json({msg:"Something went wrong",error:err})
-        })
     },
     logout: (req, res) => {
         res.clearCookie('usertoken');

@@ -25,6 +25,7 @@ BackLog:
     - Language Selector (NEW)
     - Forgot Password (NEW)
     - Exclusions
+    - pagination
 
 GitHub Repo: https://github.com/c-osornio/SecretSanta-MERN
 

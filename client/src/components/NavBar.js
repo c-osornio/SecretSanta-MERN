@@ -67,14 +67,17 @@ export default function NavBar() {
                         }`}
                     >
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                            <li className="text-white hover:text-blue-600">
-                                <a href="#">Home</a>
+                            <li className="text-white hover:text-blue-600 cursor-pointer" onClick= {()=>navigate("/dashboard")} >
+                                Home
                             </li>
-                            <li className="text-white hover:text-blue-600">
-                                <a href="#">Organize New Party!</a>
+                            <li className="text-white hover:text-blue-600 cursor-pointer">
+                                My Wishlist
                             </li>
-                            <li className="text-white hover:text-blue-600">
-                                <a href="#">My Wishlist</a>
+                            <li className="text-white hover:text-blue-600 cursor-pointer" onClick= {()=>navigate("/party/new")} >
+                                Organize New Party
+                            </li>
+                            <li className="text-white hover:text-blue-600 cursor-pointer">
+                                Account
                             </li>
                             <button onClick={handleLogout} className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full">
                                 Logout

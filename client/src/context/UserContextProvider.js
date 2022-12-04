@@ -21,16 +21,15 @@ const reducer = (state,action)=>{
         case"LOGOUT_USER":
             axios.get('http://localhost:8000/api/users/logout',{withCredentials:true})
             .then(()=>{
-                action.payload("/")
+                action.payload("/home")
             })
             .catch((err)=>{
                 action.payload("/dashboard")
             })
             return{
                 ...state,
-                user:null
+                user: null
             }
-
         default:
             return state
     }

@@ -9,6 +9,15 @@
     height: 40vh; 
   }
 
+  .dashboardTitle {
+    font-family: 'Dancing Script', cursive;
+    margin-top: -1.2em;
+  }
+
+  .dashboardName {
+    font-family: 'Dancing Script', cursive;
+  }
+
   .title {
     font-family: 'Dancing Script', cursive;
     font-size: 3rem;
@@ -45,8 +54,19 @@
   }
 
   .peace {
-    width: 550px;
+    /* position:fixed;
+    left: -100px;;
+    bottom: -30px; */
+    width: 500px;
     height: 500px;
-    margin-left: 150px;
+    margin-left: 100px;
+  }
+
+  .parties {
+    margin: -2em 0 0 0  ;
+  }
+
+  .ten {
+    margin: 0 0 0 -.6em;
   }
 }

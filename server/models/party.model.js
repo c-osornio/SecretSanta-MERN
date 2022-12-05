@@ -23,13 +23,13 @@ const WishlistSchema = new mongoose.Schema({
 const MemberSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "*Member's name is required."],
+        required: [true, "*All members are required to have names."],
         minLength: [2, "*Member's name must be at least 2 characters long."],
         trim: true
     },
     email: {
         type: String,
-        required: [true, "*Email is required."],
+        required: [true, "*All members are required to have emails."],
         match: [ /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/, "*Invaild email address."], 
         trim: true,
     },
@@ -39,9 +39,9 @@ const MemberSchema = new mongoose.Schema({
 })
 
 const PartySchema = new mongoose.Schema({
-    admin: {
-        type: Boolean
-    },
+    // admin: {
+    //     type: Boolean
+    // },
     title: {
         type: String,
         required: [true, "*Title is required."],
@@ -50,7 +50,7 @@ const PartySchema = new mongoose.Schema({
     },
     members: {
         type: [MemberSchema],
-        required: [true, "*Members are required."],
+        required: [true, "*There must be at least 3 members per party."],
         validate:{
             validator:function(v){
                 console.log(v.length)

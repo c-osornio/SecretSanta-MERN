@@ -1,5 +1,4 @@
 import {useState, useEffect, useContext} from 'react'
-import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import {UserContext} from '../context/UserContextProvider'
@@ -10,7 +9,7 @@ const PartyForm = () => {
     const navigate = useNavigate()
     const [showMore, setShowMore] = useState(false)
     const [email, setEmail] = useState("")
-    const name = `${state.user.user?.firstName?.charAt(0).toUpperCase()}${state.user.user?.firstName?.slice(1)}`
+    const name = `${state.user?.user?.firstName?.charAt(0).toUpperCase()}${state.user?.user?.firstName?.slice(1)}`
     const [input,setInput] = useState({
         "title" : "",
         "members" : [
@@ -87,17 +86,72 @@ const PartyForm = () => {
         const newMembers = input.members.filter(member=>{
             return member.name.length !== 0 || member.email.length !== 0
         })
-        console.log("THIS IS MY INPUT!!!", input, {...input, members: newMembers })
+        console.log("Creating party with input: ", input, {...input, members: newMembers })
         axios.post('http://localhost:8000/api/party', {...input, members: newMembers } , {withCredentials:true})
             .then(res => {
                 console.log(res.data)
                 setErrors({})
-                setInput({})
+                setInput({
+                    "title" : "",
+                    "members" : [
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                                {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        },
+                        {
+                            "name" : "",
+                            "email" : ""
+                        }
+                    ],
+                    "date" : "",
+                    "location" : "",
+                    "budget" : ""
+                })
+                const newMembers = [...input.members]
+                newMembers[0].name = name
+                newMembers[0].email = email
+                setInput({...input, members: newMembers})
                 navigate('/dashboard')
             })
             .catch((err)=>{
                 console.log("Party errors: ", err)
-                setErrors(err.response.data.error.errors)
+                if(err.response.data.error.errors) {
+                    setErrors(err.response.data.error.errors)
+                } else {
+                    setErrors(err.response.data.error)
+                }
             })
     }
 
@@ -147,7 +201,7 @@ const PartyForm = () => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                            errors.title && (<p className="text-red-500 text-xs italic">{errors.title.message}</p>)
+                            errors?.title && (<p className="text-red-500 text-xs italic">{errors?.title.message}</p>)
                         }
                     </div>
                     <div className="mb-2">
@@ -166,7 +220,7 @@ const PartyForm = () => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                            errors.date && (<p className="text-red-500 text-xs italic">{errors.date.message}</p>)
+                            errors?.date && (<p className="text-red-500 text-xs italic">{errors?.date.message}</p>)
                         }
                     </div>
                     <div className="mb-2">
@@ -185,7 +239,7 @@ const PartyForm = () => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                            errors.location && (<p className="text-red-500 text-xs italic">{errors.location.message}</p>)
+                            errors?.location && (<p className="text-red-500 text-xs italic">{errors?.location.message}</p>)
                         }
                     </div>
                     <div className="mb-2">
@@ -212,7 +266,7 @@ const PartyForm = () => {
                             </div>	
                         </div>
                         { 
-                            errors.budget && (<p className="text-red-500 text-xs italic budget">{errors.budget.message}</p>)
+                            errors?.budget && (<p className="text-red-500 text-xs italic budget">{errors?.budget.message}</p>)
                         }
                     </div>
                     <div className="mb-2">
@@ -223,7 +277,15 @@ const PartyForm = () => {
                             Who's invited?
                         </label>
                         { 
-                            errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
+                            errors?.members && (<p className="text-red-500 text-xs italic">{errors?.members.message}</p>)
+                        }
+                        { 
+                            errors["members.1.name"] ? (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.1.name"]?.message}</p></div>)
+                            : null
+                        }
+                        { 
+                            errors["members.1.email"] ? (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.1.email"]?.message}</p></div>)
+                            : null
                         }
                         <div>
                             <div className="columns-2 row flex justify-between">
@@ -232,21 +294,18 @@ const PartyForm = () => {
                                     disabled
                                     autoComplete="members"
                                     value={name}
-                                    onChange={ (e)=> handleMembers(e, 1) }
                                     type="text"
                                     name="name"
+                                    onChange={ (e)=> handleMembers(e, 1) }
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
-                                { 
-                                    errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
-                                }
                                 <input
                                     disabled
                                     value={email}
                                     autoComplete="members"
-                                    onChange={ (e)=> handleMembers(e, 1) }
                                     type="text"
                                     name="email"
+                                    onChange={ (e)=> handleMembers(e, 1) }
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
@@ -271,6 +330,12 @@ const PartyForm = () => {
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
+                                {/* { 
+                                    errors["members.2.name"] && (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.2.name"].message}</p></div>)
+                                }
+                                { 
+                                    errors["members.2.email"] && (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.2.email"].message}</p></div>)
+                                } */}
                             <div className="row flex justify-between">
                                 <h4 className="mt-4 mr-3">3.</h4>
                                 <input
@@ -292,6 +357,12 @@ const PartyForm = () => {
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
+                            {/* { 
+                                errors["members.3.name"] && (<p className="text-red-500 text-xs italic">{errors["members.3.name"].message}</p>)
+                            }
+                            { 
+                                errors["members.3.email"] && (<p className="text-red-500 text-xs italic">{errors["members.3.email"].message}</p>)
+                            } */}
                             <div className="row flex justify-between">
                                 <h4 className="mt-4 mr-3">4.</h4>
                                 <input
@@ -311,6 +382,12 @@ const PartyForm = () => {
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
+                            {/* { 
+                                errors["members.4.name"] && (<p className="text-red-500 text-xs italic">{errors["members.4.name"].message}</p>)
+                            }
+                            { 
+                                errors["members.4.email"] && (<p className="text-red-500 text-xs italic">{errors["members.4.email"].message}</p>)
+                            } */}
                             <div className="row flex justify-between">
                                 <h4 className="mt-4 mr-3">5.</h4>
                                 <input
@@ -330,6 +407,12 @@ const PartyForm = () => {
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
+                            {/* { 
+                                errors["members.5.name"] && (<p className="text-red-500 text-xs italic">{errors["members.5.name"].message}</p>)
+                            }
+                            { 
+                                errors["members.5.email"] && (<p className="text-red-500 text-xs italic">{errors["members.5.email"].message}</p>)
+                            } */}
                         </div>
                     </div>
                     {
@@ -351,9 +434,6 @@ const PartyForm = () => {
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
-                                    { 
-                                        errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
-                                    }
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
@@ -363,6 +443,12 @@ const PartyForm = () => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                                {/* { 
+                                    errors["members.6.name"] && (<p className="text-red-500 text-xs italic ">{errors["members.6.name"].message}</p>)
+                                }
+                                { 
+                                    errors["members.6.email"] && (<p className="text-red-500 text-xs italic ">{errors["members.6.email"].message}</p>)
+                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">7.</h4>
                                     <input
@@ -382,6 +468,12 @@ const PartyForm = () => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                                {/* { 
+                                    errors["members.7.name"] && (<p className="text-red-500 text-xs italic">{errors["members.7.name"].message}</p>)
+                                }
+                                { 
+                                    errors["members.7.email"] && (<p className="text-red-500 text-xs italic">{errors["members.7.email"].message}</p>)
+                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">8.</h4>
                                     <input
@@ -401,6 +493,12 @@ const PartyForm = () => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                                {/* { 
+                                    errors["members.8.name"] && (<p className="text-red-500 text-xs italic">{errors["members.8.name"].message}</p>)
+                                }
+                                { 
+                                    errors["members.8.email"] && (<p className="text-red-500 text-xs italic">{errors["members.8.email"].message}</p>)
+                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">9.</h4>
                                     <input
@@ -420,6 +518,12 @@ const PartyForm = () => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                                {/* { 
+                                    errors["members.9.name"] && (<p className="text-red-500 text-xs italic">{errors["members.9.name"].message}</p>)
+                                }
+                                { 
+                                    errors["members.9.email"] && (<p className="text-red-500 text-xs italic">{errors["members.9.email"].message}</p>)
+                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3 ten">10.</h4>
                                     <input
@@ -439,6 +543,12 @@ const PartyForm = () => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                                {/* { 
+                                    errors["members.10.name"] && (<p className="text-red-500 text-xs italic">{errors["members.10.name"].message}</p>)
+                                }
+                                { 
+                                    errors["members.10.email"] && (<p className="text-red-500 text-xs italic">{errors["members.10.email"].message}</p>)
+                                } */}
                                 <div className="mt-4">
                                 <h3 className= "text-xs cursor-pointer text-center hover:text-blue-700 text-gray-500 font-semibold py-1 px-2 w-20 mx-auto" onClick={toggleMore}>
                                     Invite less

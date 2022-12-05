@@ -1,23 +1,41 @@
-import {useState, useEffect, useContext} from 'react'
+import {useEffect, useContext} from 'react'
 import axios from 'axios'
 import {UserContext} from '../context/UserContextProvider'
 import {useNavigate} from 'react-router-dom'
 import Banner from '../components/Banner'
 import NavBar from '../components/NavBar'
 
-const Dashboard = () => {
+const Dashboard = ({setLoggedIn}) => {
     const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate()
 
-    const name = `${state.user.user?.firstName?.charAt(0).toUpperCase()}${state.user.user?.firstName?.slice(1)}`
+    const name = `${state.user?.user?.firstName?.charAt(0).toUpperCase()}${state.user?.user?.firstName?.slice(1)}`
 
     useEffect( ()=> {
         if(!state.user) {
             navigate("/home")
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [state.user])
 
+    useEffect(()=>{
+        axios.post('http://localhost:8000/api/users/isLoggedIn', {}, {withCredentials:true})
+        .then((user)=>{
+            console.log(user.data)
+            dispatch({
+            type:"SET_USER",
+            payload:user.data
+            })
+            setLoggedIn(true)
+        })
+        .catch((err)=>{
+            console.log(err.response.data)
+            dispatch({
+            type:"NULL_USER",
+        })
+        })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+        },[])
 
     return (
         <>

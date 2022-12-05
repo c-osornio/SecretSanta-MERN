@@ -42,7 +42,7 @@ function App() {
           {/* Create and Read */}
           <Route path="/home" element={<Home setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
           <Route path="/register" element={<ViewRegister setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/dashboard" element={<Dashboard setLoggedIn={setLoggedIn}/>} />
           <Route path="/party/new" element={<ViewPartyForm/>} />
         </Routes>
       </BrowserRouter>

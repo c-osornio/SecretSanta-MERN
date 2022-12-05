@@ -7,7 +7,7 @@ module.exports = {
                 res.status(201).json(result)
             })
             .catch( err => {
-                res.status(404).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong!', error: err })
             });
     },
     getAll: (req, res) => {
@@ -16,7 +16,7 @@ module.exports = {
                 res.json(result)
             })
             .catch( err => {
-                res.status(404).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong!', error: err })
             });
     },
     getOne: (req, res) => {
@@ -25,7 +25,7 @@ module.exports = {
                 res.json(result)
             })
             .catch((err) => {
-                res.status(404).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong!', error: err })
             });
     },
     update: (req, res) => {
@@ -38,7 +38,7 @@ module.exports = {
                 res.json(result)
             })
             .catch((err) => {
-                res.status(404).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong!', error: err })
             });
     },
     delete: (req, res) => {
@@ -47,7 +47,7 @@ module.exports = {
                 res.json(result)
             })
             .catch((err) => {
-                res.status(404).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong!', error: err })
             });
     }
 }

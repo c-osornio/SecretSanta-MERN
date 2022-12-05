@@ -9,7 +9,7 @@ const Dashboard = () => {
     const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate()
 
-    const name = `${state.user?.firstName?.charAt(0).toUpperCase()}${state.user?.firstName?.slice(1)}`
+    const name = `${state.user.user?.firstName?.charAt(0).toUpperCase()}${state.user.user?.firstName?.slice(1)}`
 
     useEffect( ()=> {
         if(!state.user) {

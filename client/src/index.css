@@ -34,6 +34,10 @@
     position: relative;
   }
 
+  .budget {
+    margin-top: -1.3em
+  }
+
   .secret {
     width: 100%;
     height: 150px;

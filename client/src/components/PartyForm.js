@@ -6,20 +6,89 @@ import {UserContext} from '../context/UserContextProvider'
 
 const PartyForm = () => {
     const {state,dispatch} = useContext(UserContext);
-    const [input,setInput] = useState({})
     const [errors, setErrors] = useState({});
     const navigate = useNavigate()
     const [showMore, setShowMore] = useState(false)
+    const [email, setEmail] = useState("")
+    const name = `${state.user.user?.firstName?.charAt(0).toUpperCase()}${state.user.user?.firstName?.slice(1)}`
+    const [input,setInput] = useState({
+        "title" : "",
+        "members" : [
+            {
+                "name" : "",
+                "email" : ""
+            },
+                    {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            },
+            {
+                "name" : "",
+                "email" : ""
+            }
+        ],
+        "date" : "",
+        "location" : "",
+        "budget" : ""
+    })
 
     useEffect(()=>{
-        console.log("Current state (login):", state)
-        state.user && navigate('/party/new')
+        if(!state.user) {
+            navigate("/home")
+        } else {
+            axios.get('http://localhost:8000/api/users/' + state.user.user?.id, {withCredentials:true} )
+            .then(res => {
+                setEmail(res.data.email)
+                const newMembers = [...input.members]
+                newMembers[0].name = name
+                newMembers[0].email = res.data.email
+                setInput({...input, members: newMembers})
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[state.user])
 
+
+
+
     const submitHandler = (e)=>{
         e.preventDefault();
-        axios.post('http://localhost:8000/api/party', input)
+        const newMembers = input.members.filter(member=>{
+            return member.name.length !== 0 || member.email.length !== 0
+        })
+        console.log("THIS IS MY INPUT!!!", input, {...input, members: newMembers })
+        axios.post('http://localhost:8000/api/party', {...input, members: newMembers } , {withCredentials:true})
             .then(res => {
                 console.log(res.data)
                 setErrors({})
@@ -34,6 +103,20 @@ const PartyForm = () => {
 
     const changeHandler=(e)=>{
         setInput({...input,[e.target.name]:e.target.value})
+    }
+
+    const handleMembers =(e, number) => {
+
+        const memberList = input.members.map((member, idx) => {
+            if(idx + 1 === number) {
+                member = {
+                    ...member,
+                    [e.target.name] : e.target.value
+                }
+            }
+            return member
+        })
+        setInput({...input, members: memberList})
     }
 
     const toggleMore = (e) => {
@@ -129,7 +212,7 @@ const PartyForm = () => {
                             </div>	
                         </div>
                         { 
-                            errors.budget && (<p className="text-red-500 text-xs italic">{errors.budget.message}</p>)
+                            errors.budget && (<p className="text-red-500 text-xs italic budget">{errors.budget.message}</p>)
                         }
                     </div>
                     <div className="mb-2">
@@ -140,7 +223,7 @@ const PartyForm = () => {
                             Who's invited?
                         </label>
                         { 
-                            errors.members && (<p className="text-red-500 text-xs italic">{errors.members.messages}</p>)
+                            errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
                         }
                         <div>
                             <div className="columns-2 row flex justify-between">
@@ -148,59 +231,64 @@ const PartyForm = () => {
                                 <input
                                     disabled
                                     autoComplete="members"
-                                    value={state.user.user.firstName}
-                                    onChange={changeHandler}
+                                    value={name}
+                                    onChange={ (e)=> handleMembers(e, 1) }
                                     type="text"
-                                    name="members"
+                                    name="name"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                                 { 
-                                    errors.members && (<p className="text-red-500 text-xs italic">{errors.members.messages}</p>)
+                                    errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
                                 }
                                 <input
-                                    value={state.user.user.id}
+                                    disabled
+                                    value={email}
                                     autoComplete="members"
-                                    onChange={changeHandler}
-                                    type="hidden"
-                                    name="members"
+                                    onChange={ (e)=> handleMembers(e, 1) }
+                                    type="text"
+                                    name="email"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
                             <div className="row flex justify-between">
                                 <h4 className="mt-4 mr-3">2.</h4>
                                 <input
+                                    value= {input.members[1]?.name}
                                     placeholder="Enter member 2"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={ (e)=> handleMembers(e, 2) }
                                     type="text"
-                                    name="members"
+                                    name="name"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                                 <input
+                                    value= {input.members[1]?.email}
                                     placeholder="Email"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={ (e)=> handleMembers(e, 2) }
                                     type="text"
-                                    name="members"
+                                    name="email"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
                             <div className="row flex justify-between">
                                 <h4 className="mt-4 mr-3">3.</h4>
                                 <input
+                                    value= {input.members[2]?.name}
                                     placeholder="Enter member 3"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={ (e)=> handleMembers(e, 3) }
                                     type="text"
-                                    name="members"
+                                    name="name"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                                 <input
+                                    value={input.members[2]?.email}
                                     placeholder="Email"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={ (e)=> handleMembers(e, 3) }
                                     type="text"
-                                    name="members"
+                                    name="email"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
@@ -209,7 +297,7 @@ const PartyForm = () => {
                                 <input
                                     placeholder="Enter member 4"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={handleMembers}
                                     type="text"
                                     name="members"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -217,7 +305,7 @@ const PartyForm = () => {
                                 <input
                                     placeholder="Email"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={handleMembers}
                                     type="text"
                                     name="members"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -228,7 +316,7 @@ const PartyForm = () => {
                                 <input
                                     placeholder="Enter member 5"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={handleMembers}
                                     type="text"
                                     name="members"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -236,7 +324,7 @@ const PartyForm = () => {
                                 <input
                                     placeholder="Email"
                                     autoComplete="members"
-                                    onChange={changeHandler}
+                                    onChange={handleMembers}
                                     type="text"
                                     name="members"
                                     className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -258,15 +346,18 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Enter member 6"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
+                                    { 
+                                        errors.members && (<p className="text-red-500 text-xs italic">{errors.members.message}</p>)
+                                    }
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -277,7 +368,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Enter member 7"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -285,7 +376,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -296,7 +387,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Enter member 8"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -304,7 +395,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -315,7 +406,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Enter member 9"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -323,7 +414,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -334,7 +425,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Enter member 10"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -342,7 +433,7 @@ const PartyForm = () => {
                                     <input
                                         placeholder="Email"
                                         autoComplete="members"
-                                        onChange={changeHandler}
+                                        onChange={handleMembers}
                                         type="text"
                                         name="members"
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"

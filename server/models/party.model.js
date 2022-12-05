@@ -1,40 +1,23 @@
 const mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 
-const ListSchema = new mongoose.Schema({
-    item: {
-        type: String,
-    },
-    description: {
-        type: String,
-    },
-    image: {
-        type: String,
-    }
-})
-
-const InterestsSchema = new mongoose.Schema({
-    interest: {
-        type: String
-    }
-})
-
-const HobbiesSchema = new mongoose.Schema({
-    hobby: {
-        type: String
-    }
-})
 
 const WishlistSchema = new mongoose.Schema({
-    hobbies: {
-        type: [HobbiesSchema],
-    },
-    interests: {
-        type: [InterestsSchema],
-    },
-    list: {
-        type: [ListSchema],
-    }
+    list: [
+        {
+            item: {
+                type: String,
+                required: [true, "*Item name is required."],
+            },
+            description: {
+                type: String,
+                required: [true, "*Description is required."],
+            },
+            image: {
+                type: String,
+            }
+        }
+    ]
 })
 
 const MemberSchema = new mongoose.Schema({
@@ -56,10 +39,13 @@ const MemberSchema = new mongoose.Schema({
 })
 
 const PartySchema = new mongoose.Schema({
+    admin: {
+        type: Boolean
+    },
     title: {
         type: String,
-        required: [true, "Title is required."],
-        minLength: [2, "Title must be at least 2 characters long"],
+        required: [true, "*Title is required."],
+        minLength: [2, "*Title must be at least 2 characters long"],
         trim: true,
     },
     members: {
@@ -72,13 +58,13 @@ const PartySchema = new mongoose.Schema({
                     return false
                 }
             },
-            message:"*There must be at least 3 members per party"
+            message: "*There must be at least 3 members per party."
         }
     },
     date: {
         type: Date,
         required: [true, "*Date is required."],
-        min: date.now(),
+        min: [Date.now(), "*Date must be in the future."]
         // validate: function(input) {
         //     return typeof new Date(input) === 'date' && new Date(input) >= new Date();
         // }, message: input => `${input} must be greater than or equal to the current date!`

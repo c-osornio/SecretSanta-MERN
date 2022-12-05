@@ -19,6 +19,7 @@ require("./config/mongoose.config");
 
 // routes
 require("./routes/user.routes")(app);
+require("./routes/party.routes")(app);
 
 const server = app.listen(port, () => console.log(`Listening on port: ${port}`) );
 

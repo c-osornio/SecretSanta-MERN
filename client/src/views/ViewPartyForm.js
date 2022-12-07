@@ -5,24 +5,24 @@ import PartyForm from '../components/PartyForm'
 import {useNavigate} from 'react-router-dom'
 import {UserContext} from '../context/UserContextProvider'
 
-const ViewPartyForm = () => {
-  const {state,dispatch} = useContext(UserContext);
+const ViewPartyForm = ({state}) => {
+  // const {state,dispatch} = useContext(UserContext);
   const navigate = useNavigate()
   
 
   useEffect( ()=> {
-    if(!state.user) {
+    if(!state) {
         navigate("/home")
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [state])
 
   return (
     <>
         <NavBar/>
         <Banner/>
-        <h1 className="dashboardTitle text-7xl ml-2 text-center">Party Time!</h1>
-        <PartyForm/>
+        <h1 className="dashboardTitle text-7xl ml-2 text-center">Plan a party!</h1>
+        <PartyForm state={state}/>
     </>
   )
 }

@@ -1,13 +1,19 @@
 const Party= require('../models/party.model')
+const jwt = require("jsonwebtoken");
+
+// const newParty = new Party(req.body)
+// const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true} )
+// newParty.createdBy = decodedJWT.payload.id
+
 
 module.exports = {
     create: (req, res) => {
-        Party.create({...req.body, host: req.Token.id})
+        Party.create(req.body)
             .then( result => {
                 res.status(201).json(result)
             })
             .catch( err => {
-                res.status(400).json({ message: 'Something went wrong!', error: err })
+                res.status(400).json({ message: 'Something went wrong! (party create)', error: err })
             });
     },
     getAll: (req, res) => {

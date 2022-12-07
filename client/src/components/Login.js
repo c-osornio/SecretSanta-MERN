@@ -5,17 +5,19 @@ import axios from 'axios'
 import {UserContext} from '../context/UserContextProvider'
 
 
-const Login = ({loggedIn, setLoggedIn}) => {
-    const {state,dispatch} = useContext(UserContext);
+const Login = ({loggedIn, setLoggedIn, state, dispatch}) => {
+    // const {state,dispatch} = useContext(UserContext);
     const [input,setInput] = useState({})
     const [errors, setErrors] = useState({});
     const navigate = useNavigate()
 
     useEffect(()=>{
-        console.log("Current state (login):", state)
-        state.user && navigate('/dashboard')
+        if(state.user) {
+            console.log("Current state (login):", state)
+            navigate('/dashboard')
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[state.user])
+    },[])
 
     const submitHandler = (e)=>{
         console.log("Attempting to login")
@@ -25,7 +27,7 @@ const Login = ({loggedIn, setLoggedIn}) => {
             console.log("Login: ", res.data)
             dispatch({
                 type: "SET_USER",
-                payload: res.data.user
+                payload: res.data
             })
             setLoggedIn(true)
             setInput({})

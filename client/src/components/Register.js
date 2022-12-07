@@ -60,7 +60,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                         <input
                             name="firstName"
                             autoComplete="firstName"
-                            value={state.firstName}
+                            value={user.firstName}
                             onChange={changeHandler}
                             type="text"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -79,7 +79,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                         <input
                             name="lastName"
                             autoComplete="lastName"
-                            value={state.lastName}
+                            value={user.lastName}
                             onChange={changeHandler}
                             type="text"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -98,7 +98,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                         <input
                             name="email"
                             autoComplete="email"
-                            value={state.email}
+                            value={user.email}
                             onChange={changeHandler}
                             type="email"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -117,7 +117,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                         <input
                             name="password"
                             autoComplete="password"
-                            value={state.password}
+                            value={user.password}
                             onChange={changeHandler}
                             type="password"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -136,7 +136,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                         <input
                             name="confirmPassword"
                             autoComplete="confirmPassword"
-                            value={state.confirmPassword}
+                            value={user.confirmPassword}
                             onChange={changeHandler}
                             type="password"
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"

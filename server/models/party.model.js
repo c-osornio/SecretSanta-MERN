@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const User = require('../models/user.model')
 
+
+const SecretSantaSchema = new mongoose.Schema({
+    name: {
+        type: String
+    },
+    email: {
+        type: String
+    }
+})
 
 const WishlistSchema = new mongoose.Schema({
     list: [
@@ -35,13 +44,13 @@ const MemberSchema = new mongoose.Schema({
     },
     wishlist: {
         type: [WishlistSchema],
+    },
+    secretSanta: {
+        type: [SecretSantaSchema]
     }
 })
 
 const PartySchema = new mongoose.Schema({
-    // admin: {
-    //     type: Boolean
-    // },
     title: {
         type: String,
         required: [true, "*Title is required."],
@@ -78,6 +87,9 @@ const PartySchema = new mongoose.Schema({
         type: Number,
         required: [true, "*Budget is required."],
         trim: true,
+    },
+    createdBy: {
+        type: String,
     }
 }, 
 {timestamps: true }
@@ -85,6 +97,8 @@ const PartySchema = new mongoose.Schema({
 
 const Party = mongoose.model("Party", PartySchema)
 
-PartySchema.plugin(uniqueValidator, { message: '*Sorry, "{VALUE}" is already taken by another member.' });
-
 module.exports = Party;
+
+
+// type: mongoose.Schema.Types.ObjectId,
+// ref: "User"

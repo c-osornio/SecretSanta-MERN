@@ -10,12 +10,12 @@ const reducer = (state,action)=>{
     switch(action.type){
         case "SET_USER":
             return{
-                ...state,
+                // ...state,
                 user: action.payload
             }
         case "NULL_USER":
             return{
-                ...state,
+                // ...state,
                 user: null
             }
         case"LOGOUT_USER":
@@ -27,7 +27,7 @@ const reducer = (state,action)=>{
                 action.payload("/dashboard")
             })
             return{
-                ...state,
+                // ...state,
                 user: null
             }
         default:

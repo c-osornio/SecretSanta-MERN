@@ -1,5 +1,5 @@
 import React from 'react'
-import Santa from '../assets/santa.png'
+import Santa from '../assets/santa2.png'
 
 const Banner = () => {
     return (

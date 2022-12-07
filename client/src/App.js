@@ -7,6 +7,10 @@ import {useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import {UserContext} from './context/UserContextProvider'
 import ViewPartyForm from './views/ViewPartyForm';
+import ViewParty from './views/ViewParty';
+import ViewWishList from './views/ViewWishList';
+import ViewUpdate from './views/ViewUpdate';
+
 
 
 
@@ -37,13 +41,21 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+
           {/* Home */}
           <Route path="/" element= {<Navigate to="/home" />} />
+
           {/* Create and Read */}
-          <Route path="/home" element={<Home setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
-          <Route path="/register" element={<ViewRegister setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>} />
-          <Route path="/dashboard" element={<Dashboard setLoggedIn={setLoggedIn}/>} />
-          <Route path="/party/new" element={<ViewPartyForm/>} />
+          <Route path="/home" element={<Home setLoggedIn={setLoggedIn} loggedIn={loggedIn} state={state} dispatch={dispatch}/>} />
+          <Route path="/register" element={<ViewRegister setLoggedIn={setLoggedIn} loggedIn={loggedIn} state={state} dispatch={dispatch}/>} />
+          <Route path="/dashboard" element={<Dashboard setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>} />
+          <Route path="/party/new" element={<ViewPartyForm setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>} />
+          <Route path="/party/:id" element={<ViewParty setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
+          <Route path="/party/:id/:memberId" element={<ViewWishList setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
+
+          {/* Update */}
+          <Route path="/party/:id/edit" element={<ViewUpdate setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
+
         </Routes>
       </BrowserRouter>
     </>

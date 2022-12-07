@@ -70,14 +70,8 @@ export default function NavBar() {
                             <li className="text-white hover:text-blue-600 cursor-pointer" onClick= {()=>navigate("/dashboard")} >
                                 Home
                             </li>
-                            <li className="text-white hover:text-blue-600 cursor-pointer">
-                                My Wishlist
-                            </li>
                             <li className="text-white hover:text-blue-600 cursor-pointer" onClick= {()=>navigate("/party/new")} >
                                 Organize New Party
-                            </li>
-                            <li className="text-white hover:text-blue-600 cursor-pointer">
-                                Account
                             </li>
                             <button onClick={handleLogout} className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full">
                                 Logout

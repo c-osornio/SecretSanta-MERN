@@ -4,6 +4,8 @@ import axios from 'axios'
 import Banner from '../components/Banner'
 import NavBar from '../components/NavBar'
 import Video from '../assets/video.mp4'
+import WishList from '../components/WishList'
+import EditWishList from '../components/EditWishList'
 
 const ViewWishList = ({state}) => {
     const [party,setParty] = useState({})
@@ -11,6 +13,7 @@ const ViewWishList = ({state}) => {
     const {id, memberId} = useParams()
     const navigate = useNavigate()
     const [myEmail, setMyEmail] = useState("")
+    const [myWishlist, setWishlist] = useState([])
 
     const stateId = state.user?.user?.id
 
@@ -65,11 +68,17 @@ const ViewWishList = ({state}) => {
                         </h1>
                         {
                             (myEmail === member.email) ? 
-                            <h1>this is your wishlist</h1>
+                            <div>
+                                <h1 className="mt-5">ADD TO YOUR WISHLIST</h1>
+                                <EditWishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
+                            </div>
                             :
-                            <h1>this is not your wishlist</h1>
+                            <div>
+                                <h1>this is not your wishlist</h1>
+                                <WishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
+                            </div>
                         }
-                        <button   className="mt-10 capitalize mb-2 w-1/8 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full" onClick={() => navigate(-1)}>Go back</button>
+                        <button   className="mt-10 capitalize mb-2 w-1/8 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full" onClick={() => navigate(`/party/${id}`)}>Go back</button>
                     </div>
                 </div>
             </div>

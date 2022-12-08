@@ -9,12 +9,17 @@ const ViewParty = ({state}) => {
     const [party,setParty] = useState({})
     const {id} = useParams()
     const navigate = useNavigate()
+    const [date, setDate] = useState("")
 
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/party/${id}`,{withCredentials:true})
         .then((res)=>{
             console.log(res)
             setParty(res.data)
+            const newDate = new Date(res.data.date).toLocaleDateString() 
+            let [month, day, year] = newDate.split('/');
+            day++
+            setDate([month, day, year].join("/"))
         })
         .catch((err)=>{
             console.log(err)
@@ -32,7 +37,9 @@ const ViewParty = ({state}) => {
             console.log(err)
         })
     }
-    
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+
     return (
         <>
             <NavBar/>
@@ -75,7 +82,7 @@ const ViewParty = ({state}) => {
                             Join the party
                         </h1>
                         <h1 className="mt-1 text-2xl">
-                            {(new Date(party.date)).toLocaleDateString()}
+                            {new Date(date).toLocaleDateString('en-US', options)}
                         </h1>
                         <h1 className="mt-5 text-2xl dashboardName">
                             hosted at

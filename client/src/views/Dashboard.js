@@ -4,6 +4,7 @@ import {UserContext} from '../context/UserContextProvider'
 import {useNavigate} from 'react-router-dom'
 import Banner from '../components/Banner'
 import NavBar from '../components/NavBar'
+import dateFormat from 'dateformat';
 
 const Dashboard = ({setLoggedIn, state, dispatch}) => {
     // const {state,dispatch} = useContext(UserContext);
@@ -68,6 +69,16 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state, myEmail])
 
+
+    const changeDateFormat=(date)=>{
+        const newDate = new Date(date).toLocaleDateString() 
+        let [month, day, year] = newDate.split('/');
+        day++
+        return [month, day, year].join("/");
+    }
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+
     return (
         <>
             <NavBar/>
@@ -87,17 +98,18 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
                                 </button>
                             </div>
                             :
-                            <h2 className="text-2xl text-center font-bold mb-3" >Check out your current parties!</h2>
+                            <h2 className="text-2xl text-center font-bold mb-5" >Check out your current parties!</h2>
                         }
                         
                         {
                             myParties && 
                             myParties.map((item, idx) => (
-                                <div className="p-5 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-xl" key={idx}>
+                                <div className="mb-5 p-5 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-xl" key={idx}>
                                     <button key={idx} onClick= {()=>navigate(`/party/${item._id}`)}  className="capitalize mb-2 w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-1 px-4 rounded-full">
-                                        {item.title} <span className="lowercase">on</span> <span>
+                                        - {item.title} -
+                                    <span className=" block capitalized">
                                         {
-                                            (new Date(item.date)).toLocaleDateString() 
+                                            changeDateFormat(new Date(item.date).toLocaleDateString('en-US', options) )
                                         }
                                         </span>
                                     </button>

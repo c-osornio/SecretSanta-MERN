@@ -8,11 +8,13 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
     create: (req, res) => {
-        Party.create(req.body)
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", req.body)
+        Party.insertMany(req.body, {forceServerObjectId:true} )
             .then( result => {
                 res.status(201).json(result)
             })
             .catch( err => {
+                console.log(err)
                 res.status(400).json({ message: 'Something went wrong! (party create)', error: err })
             });
     },

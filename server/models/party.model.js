@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const User = require('../models/user.model')
-
+// const User = require('../models/user.model')
+var uniqueValidator = require('mongoose-unique-validator');
 
 const SecretSantaSchema = new mongoose.Schema({
     name: {
@@ -16,11 +16,11 @@ const WishlistSchema = new mongoose.Schema({
         {
             item: {
                 type: String,
-                required: [true, "*Item name is required."],
+                required: [true, "*Wishlist item name is required."],
             },
-            description: {
+            details: {
                 type: String,
-                required: [true, "*Description is required."],
+                required: [true, "*Details about your wishlist item is required."],
             },
             image: {
                 type: String,
@@ -40,7 +40,7 @@ const MemberSchema = new mongoose.Schema({
         type: String,
         required: [true, "*All members are required to have emails."],
         match: [ /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/, "*Invaild email address."], 
-        trim: true,
+        trim: true
     },
     wishlist: {
         type: [WishlistSchema],
@@ -96,6 +96,8 @@ const PartySchema = new mongoose.Schema({
 )
 
 const Party = mongoose.model("Party", PartySchema)
+
+PartySchema.plugin(uniqueValidator, { message: '*Sorry, "{VALUE}" is already in use.' });
 
 module.exports = Party;
 

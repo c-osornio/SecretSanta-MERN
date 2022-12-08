@@ -2,6 +2,7 @@ import {useState, useEffect, useContext} from 'react'
 import PartyForm from '../components/PartyForm'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
+import dateFormat from 'dateformat';
 
 const UpdateParty = ({state}) => {
     const navigate = useNavigate()
@@ -87,7 +88,10 @@ const UpdateParty = ({state}) => {
             return member.name.length !== 0 || member.email.length !== 0
         })
         console.log("Creating party with input: (before/after trim)", input, {...input, members: newMembers })
-        axios.put(`http://localhost:8000/api/party/${id}`, {...input, members: newMembers} , {withCredentials:true})
+        const newInput = {...input}
+        delete newInput._id
+        console.log("NewInput without id: ", newInput)
+        axios.put(`http://localhost:8000/api/party/${id}`, {...newInput, members: newMembers} , {withCredentials:true})
         .then((res) => {
             console.log(res.data);
             setErrors({})
@@ -159,15 +163,21 @@ const UpdateParty = ({state}) => {
     }
 
     const handleMembers =(e, number) => {
-        const memberList = input.members.map((member, idx) => {
-            if(idx + 1 === number) {
-                member = {
-                    ...member,
-                    [e.target.name] : e.target.value
-                }
-            }
-            return member
-        })
+        let memberList = []
+        if(input.members.length < number) {
+            memberList = [...input.members]
+            memberList.push({[e.target.name] : e.target.value})
+        } else {
+            memberList = input.members.map((member, idx) => {
+                if(idx + 1 === number) {
+                    member = {
+                        ...member,
+                        [e.target.name] : e.target.value
+                    }
+                } 
+                return member
+            })
+        }
         setInput({...input, members: memberList})
     }
 
@@ -178,8 +188,9 @@ const UpdateParty = ({state}) => {
 
     const changeDateFormat=(date)=>{
         const newDate = new Date(date).toLocaleDateString() 
-        const [day, month, year] = newDate.split('/');
-        return [year, day, month].join('-');
+        let [month, day, year] = newDate.split('/');
+        day++
+        return [year, month, day].join('-');
     }
     
 
@@ -202,7 +213,7 @@ const UpdateParty = ({state}) => {
                                 autoComplete="title"
                                 value={input.title}
                                 onChange={changeHandler}
-                                type="title"
+                                type="text"
                                 name="title"
                                 className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />

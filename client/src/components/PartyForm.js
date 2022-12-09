@@ -15,43 +15,103 @@ const PartyForm = ({state}) => {
         "members" : [
             {
                 "name" : "",
-                "email" : ""
-            },
+                "email" : "",
+                "wishlist" : [
                     {
-                "name" : "",
-                "email" : ""
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             },
             {
                 "name" : "",
-                "email" : ""
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
+            },
+            {
+                "name" : "",
+                "email" : "",
+                "wishlist" : [
+                    {
+                        list: []
+                    }
+                ],
+                "secretSanta" : ""
             }
         ],
         "date" : "",
@@ -101,43 +161,103 @@ const PartyForm = ({state}) => {
                     "members" : [
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                                 {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         },
                         {
                             "name" : "",
-                            "email" : ""
+                            "email" : "",
+                            "wishlist" : [
+                                {
+                                    list: []
+                                }
+                            ],
+                            "secretSanta" : ""
                         }
                     ],
                     "date" : "",

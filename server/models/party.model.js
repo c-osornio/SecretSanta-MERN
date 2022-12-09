@@ -46,7 +46,7 @@ const MemberSchema = new mongoose.Schema({
         type: [WishlistSchema],
     },
     secretSanta: {
-        type: [SecretSantaSchema]
+        type: String
     }
 })
 

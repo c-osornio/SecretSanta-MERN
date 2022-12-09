@@ -7,6 +7,7 @@ import Video from '../assets/video.mp4'
 import WishList from '../components/WishList'
 import EditWishList from '../components/EditWishList'
 
+
 const ViewWishList = ({state}) => {
     const [party,setParty] = useState({})
     const [member, setMember] = useState({})
@@ -69,12 +70,10 @@ const ViewWishList = ({state}) => {
                         {
                             (myEmail === member.email) ? 
                             <div>
-                                <h1 className="mt-5">ADD TO YOUR WISHLIST</h1>
                                 <EditWishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                             :
-                            <div>
-                                <h1>this is not your wishlist</h1>
+                            <div className="mt-5">
                                 <WishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                         }

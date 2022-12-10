@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar'
 import Video from '../assets/video.mp4'
 import WishList from '../components/WishList'
 import EditWishList from '../components/EditWishList'
+import ShowList from '../components/ShowList'
 
 
 const ViewWishList = ({state}) => {
@@ -63,17 +64,18 @@ const ViewWishList = ({state}) => {
                 </video>
                 <h1 className="partyTitle capitalize">"{party.title}"</h1>
                 <div className="w-full min-h-screen overflow-hidden relative">
-                    <div className="text-center p-6 m-auto mt-10 bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-lg">
-                        <h1 className="text-3xl font-semibold text-center text-indigo-700 uppercase">
+                    <div className="text-center p-6 m-auto mt-10 bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-3xl">
+                        <h1 className="mb-5 text-3xl font-semibold text-center text-indigo-700 uppercase">
                             Wishlist for {member.name} 
                         </h1>
                         {
                             (myEmail === member.email) ? 
                             <div>
-                                <EditWishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
+                                <EditWishList myEmail={myEmail} state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                             :
                             <div className="mt-5">
+                                {/* <ShowList myEmail={myEmail} state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/> */}
                                 <WishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                         }

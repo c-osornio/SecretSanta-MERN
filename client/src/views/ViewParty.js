@@ -15,6 +15,7 @@ const ViewParty = ({state}) => {
         axios.get(`http://localhost:8000/api/party/${id}`,{withCredentials:true})
         .then((res)=>{
             console.log(res)
+            window.scrollTo(0, 0)
             setParty(res.data)
             const newDate = new Date(res.data.date).toLocaleDateString() 
             let [month, day, year] = newDate.split('/');

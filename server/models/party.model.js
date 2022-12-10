@@ -16,11 +16,11 @@ const WishlistSchema = new mongoose.Schema({
         {
             item: {
                 type: String,
-                required: [true, "*Wishlist item name is required."],
+                required: [true, "*A name for your item is required."],
             },
             details: {
                 type: String,
-                required: [true, "*Details about your wishlist item is required."],
+                required: [true, "*A link for your item is required."],
             },
             image: {
                 type: String,

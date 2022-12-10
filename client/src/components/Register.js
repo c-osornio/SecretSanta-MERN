@@ -35,7 +35,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
             })
             .catch((err)=>{
                 console.log("Registration errors: ", err)
-                setErrors(err.response.data.error.errors)
+                // setErrors(err.response.data.error.errors)
             })
     }
 

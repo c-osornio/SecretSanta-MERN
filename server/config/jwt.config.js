@@ -21,7 +21,7 @@ module.exports = {
                 res.status(401).json({verified: false});
             } else {
                 const user = await User.findOne({_id:payload.id})
-                const {_id,firstName} = user
+                const {_id ,firstName} = user
                 return res.json({
                     user: {
                         id: _id,

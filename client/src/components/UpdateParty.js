@@ -1,18 +1,13 @@
-import {useState, useEffect, useContext} from 'react'
-import PartyForm from '../components/PartyForm'
+import {useState, useEffect} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
-import dateFormat from 'dateformat';
 
 const UpdateParty = ({state}) => {
     const navigate = useNavigate()
     const { id } = useParams();
     const [errors, setErrors] = useState({});
     const [showMore, setShowMore] = useState(false)
-    const [email, setEmail] = useState("")
-    const name = `${state.user?.user?.firstName?.charAt(0).toUpperCase()}${state.user?.user?.firstName?.slice(1)}`
     const [party, setParty] = useState({})
-    const [loaded, setLoaded] = useState(false);
     const [input, setInput] = useState({
         "title" : "",
         "members" : [
@@ -72,7 +67,6 @@ const UpdateParty = ({state}) => {
                 console.log("Current Party Details: ", res.data)
                 setParty(res.data)
                 setInput(res.data)
-                setLoaded(true);
                 setShowMore(false)
             })
             .catch((err)=> {
@@ -144,7 +138,6 @@ const UpdateParty = ({state}) => {
                 "budget" : "",
                 "createdBy": ""
             })
-            setLoaded(false)
             setShowMore(false)
             navigate(`/party/${id}`);
         })
@@ -347,12 +340,6 @@ const UpdateParty = ({state}) => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
-                                    {/* { 
-                                        errors["members.2.name"] && (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.2.name"].message}</p></div>)
-                                    }
-                                    { 
-                                        errors["members.2.email"] && (<div className="table-row"><p className="text-red-500 text-xs italic table-cell">{errors["members.2.email"].message}</p></div>)
-                                    } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">3.</h4>
                                     <input
@@ -374,12 +361,6 @@ const UpdateParty = ({state}) => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
-                                {/* { 
-                                    errors["members.3.name"] && (<p className="text-red-500 text-xs italic">{errors["members.3.name"].message}</p>)
-                                }
-                                { 
-                                    errors["members.3.email"] && (<p className="text-red-500 text-xs italic">{errors["members.3.email"].message}</p>)
-                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">4.</h4>
                                     <input
@@ -401,12 +382,6 @@ const UpdateParty = ({state}) => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
-                                {/* { 
-                                    errors["members.4.name"] && (<p className="text-red-500 text-xs italic">{errors["members.4.name"].message}</p>)
-                                }
-                                { 
-                                    errors["members.4.email"] && (<p className="text-red-500 text-xs italic">{errors["members.4.email"].message}</p>)
-                                } */}
                                 <div className="row flex justify-between">
                                     <h4 className="mt-4 mr-3">5.</h4>
                                     <input
@@ -428,12 +403,6 @@ const UpdateParty = ({state}) => {
                                         className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
-                                {/* { 
-                                    errors["members.5.name"] && (<p className="text-red-500 text-xs italic">{errors["members.5.name"].message}</p>)
-                                }
-                                { 
-                                    errors["members.5.email"] && (<p className="text-red-500 text-xs italic">{errors["members.5.email"].message}</p>)
-                                } */}
                             </div>
                         </div>
                         {
@@ -466,12 +435,6 @@ const UpdateParty = ({state}) => {
                                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                         />
                                     </div>
-                                    {/* { 
-                                        errors["members.6.name"] && (<p className="text-red-500 text-xs italic ">{errors["members.6.name"].message}</p>)
-                                    }
-                                    { 
-                                        errors["members.6.email"] && (<p className="text-red-500 text-xs italic ">{errors["members.6.email"].message}</p>)
-                                    } */}
                                     <div className="row flex justify-between">
                                         <h4 className="mt-4 mr-3">7.</h4>
                                         <input
@@ -493,12 +456,6 @@ const UpdateParty = ({state}) => {
                                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                         />
                                     </div>
-                                    {/* { 
-                                        errors["members.7.name"] && (<p className="text-red-500 text-xs italic">{errors["members.7.name"].message}</p>)
-                                    }
-                                    { 
-                                        errors["members.7.email"] && (<p className="text-red-500 text-xs italic">{errors["members.7.email"].message}</p>)
-                                    } */}
                                     <div className="row flex justify-between">
                                         <h4 className="mt-4 mr-3">8.</h4>
                                         <input
@@ -520,12 +477,6 @@ const UpdateParty = ({state}) => {
                                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                         />
                                     </div>
-                                    {/* { 
-                                        errors["members.8.name"] && (<p className="text-red-500 text-xs italic">{errors["members.8.name"].message}</p>)
-                                    }
-                                    { 
-                                        errors["members.8.email"] && (<p className="text-red-500 text-xs italic">{errors["members.8.email"].message}</p>)
-                                    } */}
                                     <div className="row flex justify-between">
                                         <h4 className="mt-4 mr-3">9.</h4>
                                         <input
@@ -547,12 +498,6 @@ const UpdateParty = ({state}) => {
                                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                         />
                                     </div>
-                                    {/* { 
-                                        errors["members.9.name"] && (<p className="text-red-500 text-xs italic">{errors["members.9.name"].message}</p>)
-                                    }
-                                    { 
-                                        errors["members.9.email"] && (<p className="text-red-500 text-xs italic">{errors["members.9.email"].message}</p>)
-                                    } */}
                                     <div className="row flex justify-between">
                                         <h4 className="mt-4 mr-3 ten">10.</h4>
                                         <input
@@ -574,12 +519,6 @@ const UpdateParty = ({state}) => {
                                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                         />
                                     </div>
-                                    {/* { 
-                                        errors["members.10.name"] && (<p className="text-red-500 text-xs italic">{errors["members.10.name"].message}</p>)
-                                    }
-                                    { 
-                                        errors["members.10.email"] && (<p className="text-red-500 text-xs italic">{errors["members.10.email"].message}</p>)
-                                    } */}
                                     <div className="mt-4">
                                         <h3 className= "text-xs cursor-pointer text-center hover:text-blue-700 text-gray-500 font-semibold py-1 px-2 w-20 mx-auto" onClick={toggleMore}>
                                             Invite less

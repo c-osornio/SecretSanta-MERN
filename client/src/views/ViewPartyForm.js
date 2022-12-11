@@ -6,7 +6,6 @@ import {useNavigate} from 'react-router-dom'
 import {UserContext} from '../context/UserContextProvider'
 
 const ViewPartyForm = ({state}) => {
-  // const {state,dispatch} = useContext(UserContext);
   const navigate = useNavigate()
   
 

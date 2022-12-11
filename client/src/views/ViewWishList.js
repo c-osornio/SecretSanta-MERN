@@ -6,7 +6,6 @@ import NavBar from '../components/NavBar'
 import Video from '../assets/video.mp4'
 import WishList from '../components/WishList'
 import EditWishList from '../components/EditWishList'
-import ShowList from '../components/ShowList'
 
 
 const ViewWishList = ({state}) => {
@@ -15,7 +14,6 @@ const ViewWishList = ({state}) => {
     const {id, memberId} = useParams()
     const navigate = useNavigate()
     const [myEmail, setMyEmail] = useState("")
-    const [myWishlist, setWishlist] = useState([])
 
     const stateId = state.user?.user?.id
 
@@ -65,17 +63,20 @@ const ViewWishList = ({state}) => {
                 <h1 className="partyTitle capitalize">"{party.title}"</h1>
                 <div className="w-full min-h-screen overflow-hidden relative">
                     <div className="text-center p-6 m-auto mt-10 bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-3xl">
-                        <h1 className="mb-5 text-3xl font-semibold text-center text-indigo-700 uppercase">
-                            Wishlist for {member.name} 
-                        </h1>
                         {
                             (myEmail === member.email) ? 
                             <div>
+                                <h1 className="mb-5 text-3xl font-semibold text-center text-indigo-700 uppercase">
+                                    Homepage for {member.name} 
+                                </h1>
+                                  <button   className="capitalize mb-2 w-1/8 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-2 px-4 rounded-full" onClick= {()=>navigate(`/party/${party._id}/${member._id}/secret`)}>View your secret santa!</button>
                                 <EditWishList myEmail={myEmail} state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                             :
                             <div className="mt-5">
-                                {/* <ShowList myEmail={myEmail} state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/> */}
+                                <h1 className="mb-5 text-3xl font-semibold text-center text-indigo-700 uppercase">
+                                    Wishlist for {member.name} 
+                                </h1>
                                 <WishList state={state} party={party} setParty={setParty} member={member} setMember={setMember} id={id} memberId={memberId}/>
                             </div>
                         }

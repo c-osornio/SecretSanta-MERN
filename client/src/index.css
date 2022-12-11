@@ -47,6 +47,11 @@
     height: 150px;
   }
 
+  .santa {
+    width: 200px;
+    height: 200px;
+  }
+
   .background {
     @apply bg-gradient-to-r from-slate-800 to-slate-900
   }

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const User = require('../models/user.model')
 var uniqueValidator = require('mongoose-unique-validator');
 
 const SecretSantaSchema = new mongoose.Schema({
@@ -74,9 +73,6 @@ const PartySchema = new mongoose.Schema({
         type: Date,
         required: [true, "*Date is required."],
         min: [Date.now(), "*Date must be in the future."]
-        // validate: function(input) {
-        //     return typeof new Date(input) === 'date' && new Date(input) >= new Date();
-        // }, message: input => `${input} must be greater than or equal to the current date!`
     },
     location: {
         type: String,
@@ -100,7 +96,3 @@ const Party = mongoose.model("Party", PartySchema)
 PartySchema.plugin(uniqueValidator, { message: '*Sorry, "{VALUE}" is already in use.' });
 
 module.exports = Party;
-
-
-// type: mongoose.Schema.Types.ObjectId,
-// ref: "User"

@@ -1,13 +1,10 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
 
 const WishList = ({party, member, setMember, id, memberId, myEmail}) => {
     return (
         <>
-            {
-                member.wishlist ? null : <h1 className="mt-5 mb-3 dashboardName text-2xl">Wishlist:</h1> 
-            }
             <div className="grid grid-cols-2 place-content-around gap-10 mt-10 mb-10"> 
+
                 {
                     member.wishlist ?
                     member.wishlist[0]?.list.map((items, idx)=>(
@@ -30,7 +27,7 @@ const WishList = ({party, member, setMember, id, memberId, myEmail}) => {
                         </div>
                     ))
                     :
-                    null
+                    <h1>Tell member to make a wishlist!</h1>
                 }
             </div>
         </>
@@ -38,24 +35,3 @@ const WishList = ({party, member, setMember, id, memberId, myEmail}) => {
 }
 
 export default WishList
-
-
-{/* {
-        member.wishlist ?
-        member.wishlist.map((items, idx)=>(
-            <div key={idx}>
-                {
-                    items.list.map((wish, i)=> (
-                        <div key={i} className="border mb-5">
-                            <h1>{i + 1}</h1>
-                            <h1>{wish.item}</h1>
-                            <h1>{wish.details}</h1>
-                            <h1>{wish.image}</h1>
-                        </div>
-                    ))
-                }
-            </div>
-        ))
-        :
-        null
-} */}

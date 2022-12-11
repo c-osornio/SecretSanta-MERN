@@ -7,4 +7,5 @@ module.exports = app => {
     app.get('/api/party/:id', PartyController.getOne);
     app.put('/api/party/:id', PartyController.update);
     app.delete('/api/party/:id', PartyController.delete);
+    app.get('/api/party/:id/:memberId', PartyController.getMemberFromParty)
 }

@@ -6,7 +6,6 @@ import {UserContext} from '../context/UserContextProvider'
 
 
 const Login = ({loggedIn, setLoggedIn, state, dispatch}) => {
-    // const {state,dispatch} = useContext(UserContext);
     const [input,setInput] = useState({})
     const [errors, setErrors] = useState({});
     const navigate = useNavigate()

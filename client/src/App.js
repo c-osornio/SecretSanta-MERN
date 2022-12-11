@@ -10,6 +10,7 @@ import ViewPartyForm from './views/ViewPartyForm';
 import ViewParty from './views/ViewParty';
 import ViewWishList from './views/ViewWishList';
 import ViewUpdate from './views/ViewUpdate';
+import ViewSecret from './views/ViewSecret';
 
 
 
@@ -52,7 +53,7 @@ function App() {
           <Route path="/party/new" element={<ViewPartyForm setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>} />
           <Route path="/party/:id" element={<ViewParty setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
           <Route path="/party/:id/:memberId" element={<ViewWishList setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
-
+          <Route path="/party/:id/:memberId/secret" element={<ViewSecret setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
           {/* Update */}
           <Route path="/party/:id/edit" element={<ViewUpdate setLoggedIn={setLoggedIn} state={state} dispatch={dispatch}/>}/>
 

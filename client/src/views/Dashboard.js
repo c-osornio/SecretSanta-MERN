@@ -7,12 +7,9 @@ import NavBar from '../components/NavBar'
 import dateFormat from 'dateformat';
 
 const Dashboard = ({setLoggedIn, state, dispatch}) => {
-    // const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate()
     const [myParties, setMyParties] = useState([])
     const [myEmail, setMyEmail] = useState("")
-
-    // const name = `${state?.user?.user?.firstName?.charAt(0).toUpperCase()}${state?.user?.user?.firstName?.slice(1)}`
     const id = state.user?.user?.id
 
     useEffect( ()=> {

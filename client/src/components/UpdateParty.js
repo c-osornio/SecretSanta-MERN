@@ -74,10 +74,11 @@ const UpdateParty = ({state}) => {
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [state])
+    }, [state])
 
     const submitHandler = (e) => {
         e.preventDefault();
+        changeDateFormat(input.date)
         const newMembers = input.members.filter(member=>{
             return member.name.length !== 0 || member.email.length !== 0
         })

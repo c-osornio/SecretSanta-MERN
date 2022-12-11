@@ -1,15 +1,6 @@
 const mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 
-const SecretSantaSchema = new mongoose.Schema({
-    name: {
-        type: String
-    },
-    email: {
-        type: String
-    }
-})
-
 const WishlistSchema = new mongoose.Schema({
     list: [
         {

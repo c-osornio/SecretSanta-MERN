@@ -10,7 +10,7 @@ const ViewParty = ({state}) => {
     const {id} = useParams()
     const navigate = useNavigate()
     const [date, setDate] = useState("")
-    const [myEmail, setMyEmail] = useState("")
+    // const [myEmail, setMyEmail] = useState("")
     const [members, setMembers] = useState([])
 
     const stateId = state.user?.user?.id
@@ -22,7 +22,8 @@ const ViewParty = ({state}) => {
             axios.get('http://localhost:8000/api/users/' + stateId, {withCredentials:true} )
             .then(res => {
                 console.log("Logged In User's Email: ", res.data.email)
-                setMyEmail(res.data.email)
+                // setMyEmail(res.data.email)
+                shuffleMembers(members)
             })
             .catch((err)=> {
                 console.log(err);
@@ -42,6 +43,7 @@ const ViewParty = ({state}) => {
             day++
             setDate([month, day, year].join("/"))
             setMembers([...res.data.members])
+            shuffleMembers(members)
         })
         .catch((err)=>{
             console.log(err)
@@ -63,15 +65,15 @@ const ViewParty = ({state}) => {
     const shuffleMembers= (array) => {
         let currentIndex = members.length
         // While there remain elements to shuffle.
-        while (currentIndex != 0) {
+        while (currentIndex !== 0) {
           // Pick a remaining element.
-          let randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
           // And swap it with the current element.
-          [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
         }
         return array;
-      }
+    }
 
     const setSecretSantas = () => {
         console.log("Attempting to assign secret santas")
@@ -161,10 +163,7 @@ const ViewParty = ({state}) => {
                         {
                             party.createdBy === state.user?.user?.id && 
                             <>
-                                {
-
-                                }
-                                    <button onClick={setSecretSantas} className="capitalize block mx-auto mt-5 text-xs cursor-pointer text-center w-40 hover:text-blue-700 text-gray-500 font-semibold py-1 px-2">
+                                <button onClick={setSecretSantas} className="capitalize block mx-auto mt-5 text-xs cursor-pointer text-center w-40 hover:text-blue-700 text-gray-500 font-semibold py-1 px-2">
                                     Draw names!
                                 </button>
                                 <button onClick={() => navigate(`/party/${party._id}/edit`)} className="block mx-auto mt-2 text-xs cursor-pointer text-center w-40 hover:text-blue-700 text-gray-500 font-semibold py-1 px-2">

@@ -184,6 +184,33 @@ const UpdateParty = ({state}) => {
         const newDate = new Date(date).toLocaleDateString() 
         let [month, day, year] = newDate.split('/');
         day++
+        // console.log("Month:", typeof month)
+        // console.log("Day:", typeof day)
+        // console.log("Year: ", typeof year)
+        if(day > 31 && month === "12") {
+            month = "1"
+            day = 1
+            year ++
+        }
+        if(day > 31 && month !== "12") {
+            month++
+            day =1
+        }
+        if(day === 31 && (month === "9" || month === "4" || month === "6" || month === "11")) {
+            day = 1
+            month++
+        }
+        if(month === "2" && day > 28) {
+            day =1
+            month = "3"
+        }
+        if(day < 10) {
+            day = ('0' + day).slice(-2)
+            Number(day)
+        }
+        if(month < 10) {
+            month = ('0' + month).slice(-2)
+        }
         return [year, month, day].join('-');
     }
     

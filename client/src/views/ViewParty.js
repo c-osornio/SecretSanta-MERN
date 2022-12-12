@@ -41,6 +41,31 @@ const ViewParty = ({state}) => {
             const newDate = new Date(res.data.date).toLocaleDateString() 
             let [month, day, year] = newDate.split('/');
             day++
+            if(month === 12 && day > 31) {
+                year++
+            }
+            if(day === 31 && (month === 9 || month === 4 || month === 6 || month === 11)) {
+                day = 1
+            }
+            if(day > 31) {
+                day = 1
+                if(month < 12) {
+                    month++
+                } else {
+                    month = 1
+                    year++
+                }
+            }
+            if(day < 10) {
+                day = ('0' + day).slice(-2)
+                Number(day)
+                console.log("Day:", day)
+            }
+            if(month < 10) {
+                month = ('0' + month).slice(-2)
+                Number(month)
+                console.log("Month:", month)
+            }
             setDate([month, day, year].join("/"))
             setMembers([...res.data.members])
             shuffleMembers(members)

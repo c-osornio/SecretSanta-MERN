@@ -34,8 +34,8 @@ const Register = ({loggedIn, setLoggedIn}) => {
                 navigate('/dashboard')
             })
             .catch((err)=>{
-                console.log("Registration errors: ", err)
-                // setErrors(err.response.data.error.errors)
+                console.log("Registration errors: ", err.response.data.error.errors)
+                setErrors(err.response.data.error.errors)
             })
     }
 

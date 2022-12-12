@@ -56,7 +56,7 @@ module.exports = {
                     .json({ msg: "Registration successful!", user: user });
             })
             .catch((err)=>{
-                res.status(400).json({msg:"Something went wrong",error:err})
+                res.status(400).json({msg:"Something went wrong (registration)",error:err})
             })
     },
     login: (req, res) => {

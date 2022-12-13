@@ -59,12 +59,12 @@ const ViewParty = ({state}) => {
             if(day < 10) {
                 day = ('0' + day).slice(-2)
                 Number(day)
-                console.log("Day:", day)
+                // console.log("Day:", day)
             }
             if(month < 10) {
                 month = ('0' + month).slice(-2)
                 Number(month)
-                console.log("Month:", month)
+                // console.log("Month:", month)
             }
             setDate([month, day, year].join("/"))
             setMembers([...res.data.members])

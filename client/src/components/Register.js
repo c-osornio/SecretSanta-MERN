@@ -66,7 +66,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                        errors.firstName ? (<p className="text-red-500 text-xs italic">{errors.firstName.message}</p>) : null
+                        errors?.firstName ? (<p className="text-red-500 text-xs italic">{errors?.firstName.message}</p>) : null
                         }
                     </div>
                     <div className="mb-2">
@@ -85,7 +85,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                        errors.lastName ? (<p className="text-red-500 text-xs italic">{errors.lastName.message}</p>) : null
+                        errors?.lastName ? (<p className="text-red-500 text-xs italic">{errors?.lastName.message}</p>) : null
                         }
                     </div>
                     <div className="mb-2">
@@ -104,7 +104,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                        errors.email ? (<p className="text-red-500 text-xs italic">{errors.email.message}</p>) : null
+                        errors?.email ? (<p className="text-red-500 text-xs italic">{errors?.email.message}</p>) : null
                         }
                     </div>
                     <div className="mb-2">
@@ -123,7 +123,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                            errors.password ? (<p className="text-red-500 text-xs italic">{errors.password.message}</p>) : null
+                            errors?.password ? (<p className="text-red-500 text-xs italic">{errors?.password.message}</p>) : null
                         }
                     </div>
                     <div className="mb-2">
@@ -142,7 +142,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         { 
-                            errors.confirmPassword ? (<p className="text-red-500 text-xs italic">{errors.confirmPassword.message}</p>) : null
+                            errors?.confirmPassword ? (<p className="text-red-500 text-xs italic">{errors?.confirmPassword.message}</p>) : null
                         }
                     </div>
                     <div className="mt-6">

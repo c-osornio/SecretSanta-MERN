@@ -70,12 +70,12 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
     const changeDateFormat=(date)=>{
         const newDate = new Date(date).toLocaleDateString() 
         let [month, day, year] = newDate.split('/');
-        console.log("Month:", month)
-        console.log("Year: ", year)
+        // console.log("Month:", month)
+        // console.log("Year: ", year)
         day++
-        console.log("Month:", typeof month)
-        console.log("Day:", typeof day)
-        console.log("Year: ", typeof year)
+        // console.log("Month:", typeof month)
+        // console.log("Day:", typeof day)
+        // console.log("Year: ", typeof year)
         if(day > 31 && month === "12") {
             month = "1"
             day = 1

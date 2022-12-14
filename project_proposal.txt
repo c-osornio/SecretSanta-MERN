@@ -9,12 +9,10 @@ Description: App to create and help secret santa groups with drawing names, sett
 Week 1 Features: 
     - Full CRUD with groups and wishlists
     - Tailwind CSS (NEW)
-    - Sass CSS (NEW)
     - Login/Registration with Data Validation (NEW)
     - Protected Routes (NEW)
 
 Week 2 Features:
-    - Socket.io working on localhost
     - Send Invitations through text or email
 
 BackLog: 

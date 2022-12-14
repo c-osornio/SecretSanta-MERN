@@ -35,6 +35,7 @@ const ShowList = ({state, party, setParty, member, setMember, id, memberId, inde
         delete newInput._id
         console.log("NewInput without id: ", newInput)
         console.log("Updated wishlist: ", newParty.members[index].wishlist)
+        
         axios.put(`http://localhost:8000/api/party/${id}`, newInput , {withCredentials:true})
             .then((res) => {
                 console.log(res.data);

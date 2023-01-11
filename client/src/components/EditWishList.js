@@ -21,12 +21,12 @@ const EditWishList = ({state, party, setParty, member, setMember, id, memberId, 
         } else {
             axios.get('http://localhost:8000/api/party/' + id, {withCredentials:true} )
             .then(res => {
-                console.log("Party Details: ", res.data)
+                // console.log("Party Details: ", res.data)
                 setParty(res.data)
-                console.log("Members then member", res.data.members, member)
+                // console.log("Members then member", res.data.members, member)
                 const index = res.data.members.findIndex(i => i.email === member.email)
-                console.log("Member Index: ", index)
-                console.log("Current wishlist: ", member.wishlist)
+                // console.log("Member Index: ", index)
+                // console.log("Current wishlist: ", member.wishlist)
                 setIndex(index)
                 setAllMembers(res.data.members)
                 setNextUp(member.wishlist[0]?.list.length)
@@ -43,12 +43,12 @@ const EditWishList = ({state, party, setParty, member, setMember, id, memberId, 
 
         console.log("Updating wishlist")
         let newList = [...party.members[index].wishlist[0].list, {item, details, image}]
-        console.log("Newly entered list: ", newList)
-        console.log("New wishlist: ", newList)
+        // console.log("Newly entered list: ", newList)
+        // console.log("New wishlist: ", newList)
        
         let newMemberList = []
         newMemberList = party.members.map((member, idx) => {
-            console.log("Indexes:" , idx, index)
+            // console.log("Indexes:" , idx, index)
             if(idx === index) {
                 member = {
                     ...member,
@@ -57,20 +57,20 @@ const EditWishList = ({state, party, setParty, member, setMember, id, memberId, 
             }
             return member
         })
-        console.log("Updated memberList: ", newMemberList)
+        // console.log("Updated memberList: ", newMemberList)
 
         let newParty = {...party}
         newParty.members = newMemberList
-        console.log("New Party: ", newParty)
+        // console.log("New Party: ", newParty)
 
         const newInput = {...newParty}
         delete newInput._id
-        console.log("NewInput without id: ", newInput)
-        console.log("Updated wishlist: ", newParty.members[index].wishlist)
+        // console.log("NewInput without id: ", newInput)
+        // console.log("Updated wishlist: ", newParty.members[index].wishlist)
 
         axios.put(`http://localhost:8000/api/party/${id}`, newInput , {withCredentials:true})
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setItemError({})
                 setDetailsError({})
                 setItem("")
@@ -79,7 +79,7 @@ const EditWishList = ({state, party, setParty, member, setMember, id, memberId, 
                 navigate(`/party/${id}`);
             })
             .catch((err) => {
-                console.log("Error in wishlist: ", err.response.data.error.errors[`members.0.wishlist.0.list.${nextUp}.item`]);
+                // console.log("Error in wishlist: ", err.response.data.error.errors[`members.0.wishlist.0.list.${nextUp}.item`]);
                 setItemError(err.response.data.error.errors[`members.0.wishlist.0.list.${nextUp}.item`])
                 setDetailsError(err.response.data.error.errors[`members.0.wishlist.0.list.${nextUp}.details`])
             });

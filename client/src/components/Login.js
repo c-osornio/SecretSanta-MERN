@@ -12,18 +12,18 @@ const Login = ({loggedIn, setLoggedIn, state, dispatch}) => {
 
     useEffect(()=>{
         if(state.user) {
-            console.log("Current state (login):", state)
+            // console.log("Current state (login):", state)
             navigate('/dashboard')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const submitHandler = (e)=>{
-        console.log("Attempting to login")
+        // console.log("Attempting to login")
         e.preventDefault()
         axios.post('http://localhost:8000/api/users/login' ,input, {withCredentials:true})
         .then((res)=>{
-            console.log("Login: ", res.data)
+            // console.log("Login: ", res.data)
             dispatch({
                 type: "SET_USER",
                 payload: res.data
@@ -34,7 +34,7 @@ const Login = ({loggedIn, setLoggedIn, state, dispatch}) => {
             navigate('/dashboard')
         })
         .catch((err)=>{
-            console.log("Login errors: ", err.response.data)
+            // console.log("Login errors: ", err.response.data)
             setErrors(err.response.data)
         })
     }

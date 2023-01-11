@@ -8,7 +8,7 @@ export default function NavBar() {
     const navigate = useNavigate()
 
     const handleLogout = (e) => {
-        console.log("Attempting to logout")
+        // console.log("Attempting to logout")
         dispatch({
             type:"LOGOUT_USER",
             payload: navigate

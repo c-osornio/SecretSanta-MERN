@@ -22,7 +22,7 @@ function App() {
   useEffect(()=>{
     axios.post('http://localhost:8000/api/users/isLoggedIn', {}, {withCredentials:true})
     .then((user)=>{
-      console.log(user.data)
+      // console.log(user.data)
       dispatch({
         type:"SET_USER",
         payload:user.data
@@ -30,7 +30,7 @@ function App() {
       setLoggedIn(true)
     })
     .catch((err)=>{
-      console.log(err.response.data)
+      // console.log(err.response.data)
       dispatch({
         type:"NULL_USER",
       })

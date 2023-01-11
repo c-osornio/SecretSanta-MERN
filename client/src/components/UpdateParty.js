@@ -64,7 +64,7 @@ const UpdateParty = ({state}) => {
         } else {
             axios.get('http://localhost:8000/api/party/' + id, {withCredentials:true} )
             .then(res => {
-                console.log("Current Party Details: ", res.data)
+                // console.log("Current Party Details: ", res.data)
                 setParty(res.data)
                 setInput(res.data)
                 setShowMore(false)
@@ -82,13 +82,13 @@ const UpdateParty = ({state}) => {
         const newMembers = input.members.filter(member=>{
             return member.name.length !== 0 || member.email.length !== 0
         })
-        console.log("Creating party with input: (before/after trim)", input, {...input, members: newMembers })
+        // console.log("Creating party with input: (before/after trim)", input, {...input, members: newMembers })
         const newInput = {...input}
         delete newInput._id
-        console.log("NewInput without id: ", newInput)
+        // console.log("NewInput without id: ", newInput)
         axios.put(`http://localhost:8000/api/party/${id}`, {...newInput, members: newMembers} , {withCredentials:true})
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setErrors({})
             setInput({
                 "title" : "",

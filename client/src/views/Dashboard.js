@@ -18,7 +18,7 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
         } else {
             axios.get('http://localhost:8000/api/users/' + id, {withCredentials:true} )
             .then(res => {
-                console.log("Logged In User's Email: ", res.data.email)
+                // console.log("Logged In User's Email: ", res.data.email)
                 setMyEmail(res.data.email)
             })
             .catch((err)=> {
@@ -31,7 +31,7 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
     useEffect(()=>{
         axios.post('http://localhost:8000/api/users/isLoggedIn', {}, {withCredentials:true})
         .then((user)=>{
-            console.log(user.data)
+            // console.log(user.data)
             dispatch({
             type:"SET_USER",
             payload:user.data
@@ -39,7 +39,7 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
             setLoggedIn(true)
         })
         .catch((err)=>{
-            console.log(err.response.data)
+            // console.log(err.response.data)
             dispatch({
             type:"NULL_USER",
         })
@@ -50,14 +50,14 @@ const Dashboard = ({setLoggedIn, state, dispatch}) => {
     useEffect(()=>{
         axios.get('http://localhost:8000/api/parties', {}, {withCredentials:true})
         .then((res)=> {
-            console.log("All Parties: ", res.data)
+            // console.log("All Parties: ", res.data)
             const parties = res.data.filter(party=>{
-                console.log("All Party's Memebers: ", party.members)
+                // console.log("All Party's Memebers: ", party.members)
                 return party.members.some((member)=> {
                     return member.email === myEmail
                 })
             })
-            console.log("My Parties: ", parties)
+            // console.log("My Parties: ", parties)
             setMyParties(parties)
         })
         .catch((err)=>{

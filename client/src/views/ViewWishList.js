@@ -23,7 +23,7 @@ const ViewWishList = ({state}) => {
         } else {
             axios.get('http://localhost:8000/api/users/' + stateId, {withCredentials:true} )
             .then(res => {
-                console.log("Logged In User's Email: ", res.data.email)
+                // console.log("Logged In User's Email: ", res.data.email)
                 setMyEmail(res.data.email)
             })
             .catch((err)=> {
@@ -36,13 +36,13 @@ const ViewWishList = ({state}) => {
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/party/${id}`,{withCredentials:true})
         .then((res)=>{
-            console.log("Party Members: ", res.data.members)
+            // console.log("Party Members: ", res.data.members)
             setParty(res.data)
             const thisMember = res.data.members.filter(member=>{
-                console.log("All member's ids: ", member._id)
+                // console.log("All member's ids: ", member._id)
                 return member._id === memberId
             })
-            console.log("This Member: ", thisMember[0])
+            // console.log("This Member: ", thisMember[0])
             setMember(thisMember[0])
         })
         .catch((err)=>{

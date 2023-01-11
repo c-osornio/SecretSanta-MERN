@@ -8,12 +8,12 @@ const ShowList = ({state, party, setParty, member, setMember, id, memberId, inde
     const navigate = useNavigate()
     
     const handleDelete=(idx)=>{
-        console.log("Attempting to remove item from wishlist")
-        console.log("List index: ", idx)
+        // console.log("Attempting to remove item from wishlist")
+        // console.log("List index: ", idx)
         let newList = party.members[index].wishlist[0].list
-        console.log("Trying to remove: ", newList[idx].item)
+        // console.log("Trying to remove: ", newList[idx].item)
         newList.splice(idx, 1)
-        console.log("List without item: ", newList)
+        // console.log("List without item: ", newList)
 
         let newMemberList = []
         newMemberList = party.members.map((participant, i) => {
@@ -25,20 +25,20 @@ const ShowList = ({state, party, setParty, member, setMember, id, memberId, inde
             }
             return participant
         })
-        console.log("Updated memberList: ", newMemberList)
+        // console.log("Updated memberList: ", newMemberList)
 
         let newParty = {...party}
         newParty.members = newMemberList
-        console.log("New Party: ", newParty)
+        // console.log("New Party: ", newParty)
 
         const newInput = {...newParty}
         delete newInput._id
-        console.log("NewInput without id: ", newInput)
-        console.log("Updated wishlist: ", newParty.members[index].wishlist)
+        // console.log("NewInput without id: ", newInput)
+        // console.log("Updated wishlist: ", newParty.members[index].wishlist)
         
         axios.put(`http://localhost:8000/api/party/${id}`, newInput , {withCredentials:true})
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 navigate(`/party/${id}`);
             })
             .catch((err) => {

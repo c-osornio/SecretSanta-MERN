@@ -11,7 +11,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
     const {state,dispatch} = useContext(UserContext);
     
     useEffect(()=>{
-        console.log("Current state user:", state)
+        // console.log("Current state user:", state)
         state.user && navigate('/dashboard')
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[state.user])
@@ -21,7 +21,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/users/register', user, {withCredentials:true})
             .then((res)=>{
-                console.log("Success Registration: ", res.data)
+                // console.log("Success Registration: ", res.data)
                 dispatch({
                     type: "SET_USER",
                     payload: {
@@ -34,7 +34,7 @@ const Register = ({loggedIn, setLoggedIn}) => {
                 navigate('/dashboard')
             })
             .catch((err)=>{
-                console.log("Registration errors: ", err.response.data.error.errors)
+                // console.log("Registration errors: ", err.response.data.error.errors)
                 setErrors(err.response.data.error.errors)
             })
     }

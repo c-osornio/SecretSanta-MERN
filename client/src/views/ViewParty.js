@@ -21,7 +21,7 @@ const ViewParty = ({state}) => {
         } else {
             axios.get('http://localhost:8000/api/users/' + stateId, {withCredentials:true} )
             .then(res => {
-                console.log("Logged In User's Email: ", res.data.email)
+                // console.log("Logged In User's Email: ", res.data.email)
                 // setMyEmail(res.data.email)
                 shuffleMembers(members)
             })
@@ -35,7 +35,7 @@ const ViewParty = ({state}) => {
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/party/${id}`,{withCredentials:true})
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             // window.scrollTo(0, 0)
             setParty(res.data)
             const newDate = new Date(res.data.date).toLocaleDateString() 
@@ -79,7 +79,7 @@ const ViewParty = ({state}) => {
     const handleDelete=()=>{
         axios.delete(`http://localhost:8000/api/party/${id}`,{withCredentials:true})
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             navigate('/dashboard')
         })
         .catch((err)=>{
@@ -101,12 +101,12 @@ const ViewParty = ({state}) => {
     }
 
     const setSecretSantas = () => {
-        console.log("Attempting to assign secret santas")
+        // console.log("Attempting to assign secret santas")
         const newParty = {...party}
-        console.log("Current Party: ", newParty)
+        // console.log("Current Party: ", newParty)
         const allMembers = [...party.members]
         shuffleMembers(allMembers)
-        console.log("Shuffled Member Emails: ", allMembers)
+        // console.log("Shuffled Member Emails: ", allMembers)
         for(var i = 0; i < allMembers.length; i++) {
             if(i + 1 < allMembers.length) {
                 allMembers[i].secretSanta = allMembers[i + 1].name 
@@ -114,19 +114,19 @@ const ViewParty = ({state}) => {
                 allMembers[i].secretSanta = allMembers[0].name
             }
         }
-        console.log("Members with their Secret Santas: ", allMembers)
+        // console.log("Members with their Secret Santas: ", allMembers)
 
         let shuffledParty = {...party}
         shuffledParty.members = allMembers
-        console.log("New Party: ", shuffledParty)
+        // console.log("New Party: ", shuffledParty)
 
         const newInput = {...shuffledParty}
         delete newInput._id
-        console.log("NewInput without id: ", newInput)
+        // console.log("NewInput without id: ", newInput)
 
         axios.put(`http://localhost:8000/api/party/${id}`, newInput , {withCredentials:true})
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 navigate(`/dashboard`);
             })
             .catch((err) => {

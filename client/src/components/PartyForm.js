@@ -131,7 +131,7 @@ const PartyForm = ({state}) => {
                 newMembers[0].email = res.data.email
                 setInput({...input, members: newMembers})
                 const createdBy = state.user?.user?.id
-                console.log("Created by: ", createdBy)
+                // console.log("Created by: ", createdBy)
                 setInput({...input, createdBy: createdBy})
                 setShowMore(false)
             })
@@ -150,10 +150,10 @@ const PartyForm = ({state}) => {
         const newMembers = input.members.filter(member=>{
             return member.name.length !== 0 || member.email.length !== 0
         })
-        console.log("Creating party with input: (before/after trim)", input, {...input, members: newMembers })
+        // console.log("Creating party with input: (before/after trim)", input, {...input, members: newMembers })
         axios.post('http://localhost:8000/api/party', {...input, members: newMembers} , {withCredentials:true})
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 setErrors({})
                 setInput({
                     "title" : "",
@@ -268,7 +268,7 @@ const PartyForm = ({state}) => {
                 navigate('/dashboard')
             })
             .catch((err)=>{
-                console.log("Party errors: ", err)
+                // console.log("Party errors: ", err)
                 if(err.response.data.error.errors) {
                     setErrors(err.response.data.error.errors)
                 } else {
